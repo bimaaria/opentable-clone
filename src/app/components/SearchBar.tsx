@@ -11,7 +11,6 @@ const SearchBar = () => {
     if(location === "") return;
     router.push(`/search?city=${location}`);
     setLocation("");
-    console.log(location)
   }
 
   return (
