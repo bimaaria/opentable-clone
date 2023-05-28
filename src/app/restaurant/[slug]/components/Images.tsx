@@ -7,6 +7,7 @@ const Images = ({ images, slug }: { images: string[], slug: string }) => {
       <div className="flex flex-wrap">
         {images.map((image, index) => (
           <img
+            key={slug + index + 1}
             className="w-56 mb-1 mr-1 h-44"
             src={image}
             alt={slug + index + 1}
