@@ -3,29 +3,15 @@ import { PRICE } from "@prisma/client"
 const Price = ({ price }: { price: PRICE }) => {
   const renderPrice = (): JSX.Element => {
     if(price === PRICE.CHEAP) {
-      return (
-        <>
-          <span>$$</span> <span className="text-gray-400">$$</span>
-        </>
-      )
+      return <p className="flex mr-3">$</p>
     } else if(price === PRICE.REGULAR) {
-      return (
-        <>
-          <span>$$$</span> <span className="text-gray-400">$</span>
-        </>
-      )
+      return <p className="flex mr-3">$$</p>
     } else {
-      return (
-        <>
-          <span>$$$$</span>
-        </>
-      )
+      return <p className="flex mr-3">$$$</p>
     }
   }
   
-  return <p className="flex mr-3">
-    {renderPrice()}
-  </p>
+  return renderPrice()
 }
 
 export default Price

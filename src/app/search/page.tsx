@@ -12,6 +12,31 @@ interface SearchParams {
 const prisma = new PrismaClient();
 
 const fetchRestaurantByCity = async (searchParams: SearchParams) => {
+  const where: any = {};
+
+  if(searchParams.city) {
+    const location = {
+      name: {
+        equals: searchParams.city.toLowerCase()
+      }
+    }
+    where.location = location
+  }
+  if(searchParams.cuisine) {
+    const cuisine = {
+      name: {
+        equals: searchParams.cuisine.toLowerCase()
+      }
+    }
+    where.cuisine = cuisine
+  }
+  if(searchParams.price) {
+    const price = {
+      equals: searchParams.price
+    }
+    where.price = price
+  }
+  
   const select = {
     id: true,
     name: true,
@@ -22,28 +47,10 @@ const fetchRestaurantByCity = async (searchParams: SearchParams) => {
     slug: true
   }
 
-  if(!searchParams) return await prisma.restaurant.findMany({select});
-  
-  const restaurant = await prisma.restaurant.findMany({
-    where: {
-      location: {
-        name: {
-          equals: searchParams.city?.toLowerCase()
-        }
-      },
-      cuisine: {
-        name: {
-          equals: searchParams.cuisine?.toLowerCase()
-        } 
-      },
-      price: {
-        equals: searchParams.price
-      },
-    },
+  return prisma.restaurant.findMany({
+    where,
     select
-  });
-
-  return restaurant;
+  });;
 } 
 
 const fetchLocations = async () => {

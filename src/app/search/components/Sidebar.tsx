@@ -13,17 +13,17 @@ const Sidebar = ({
   const prices = [
     {
       price: PRICE.CHEAP,
-      label: "$$",
+      label: "$",
       className: "w-full p-2 font-light border rounded-l text-reg"
     },
     {
       price: PRICE.REGULAR,
-      label: "$$$",
+      label: "$$",
       className: "w-full p-2 font-light border-t border-b border-r text-reg"
     },
     {
       price: PRICE.EXPENSIVE,
-      label: "$$$$",
+      label: "$$$",
       className: "w-full p-2 font-light border-t border-b border-r rounded-r text-reg"
     },
   ]
