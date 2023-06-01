@@ -6,9 +6,9 @@ interface Props {
   restaurant: RestaurantCardType;
 }
 
-const RestaurantCard = ({restaurant}: Props) => {
+const RestaurantCard = ({ restaurant }: Props) => {
   return (
-    <div key={restaurant.id} className="w-64 h-72 m-3 rounded overflow-hidden border cursor-pointer">
+    <div key={restaurant.id} className="w-64 m-3 overflow-hidden border rounded cursor-pointer h-72">
       <Link href={`/restaurant/${restaurant.slug}`}>
         <img
           src={restaurant.main_image}
@@ -16,17 +16,19 @@ const RestaurantCard = ({restaurant}: Props) => {
           className="w-full h-36"
         />
         <div className="p-1">
-          <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
+          <h3 className="mb-2 text-2xl font-bold">{restaurant.name}</h3>
           <div className="flex items-start">
             <div className="flex mb-2">*****</div>
-            <p className="ml-2">77 reviews</p>
+            <p className="ml-2">
+              {restaurant.reviews.length} {restaurant.reviews.length === 1 ? "review" : "reviews"}
+            </p>
           </div>
-          <div className="flex text-reg font-light capitalize">
-            <p className=" mr-3">{restaurant.cuisine.name}</p>
+          <div className="flex font-light capitalize text-reg">
+            <p className="mr-3 ">{restaurant.cuisine.name}</p>
             <Price price={restaurant.price} />
             <p>{restaurant.location.name}</p>
           </div>
-          <p className="text-sm mt-1 font-bold">Booked 3 times today</p>
+          <p className="mt-1 text-sm font-bold">Booked 3 times today</p>
         </div>
       </Link>
     </div>  

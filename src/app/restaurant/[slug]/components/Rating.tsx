@@ -1,12 +1,17 @@
-const Rating = () => {
+import { calculateReview } from "@/app/utils/CalculateReview"
+import { Review } from "@prisma/client"
+
+const Rating = ({ reviews }: { reviews: Review[] }) => {
   return (
     <div className="flex items-end">
-      <div className="ratings mt-2 flex items-center">
+      <div className="flex items-center mt-2 ratings">
         <p>*****</p>
-        <p className="text-reg ml-3">4.9</p>
+        <p className="ml-3 text-reg">{calculateReview(reviews)}</p>
       </div>
       <div>
-        <p className="text-reg ml-4">600 Reviews</p>
+        <p className="ml-4 text-reg">
+          {reviews.length} Review{reviews.length === 1 ? "": "s"}
+        </p>
       </div>
     </div>
   )

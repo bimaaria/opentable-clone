@@ -1,11 +1,11 @@
 "use client";
 
-import * as React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const SearchBar = () => {
   const router = useRouter();
-  const [location, setLocation] = React.useState("");
+  const [location, setLocation] = useState("");
 
   const handleSearch = () => {
     if(location === "") return;
