@@ -7,14 +7,14 @@ import { Review } from "@prisma/client";
 import { calculateReview } from "../utils/CalculateReview";
 
 
-export const Stars = ({ reviews }: { reviews: Review[] }) => {
-  const rating = calculateReview(reviews);
+export const Stars = ({ reviews, rating }: { reviews: Review[], rating?: number }) => {
+  const rate = rating || calculateReview(reviews);
 
   const renderStars = () => {
     const stars = [];
 
     for (let i = 0; i < 5; i++) {
-      const difference = parseFloat((rating - i).toFixed(1));
+      const difference = parseFloat((rate - i).toFixed(1));
 
       if(difference >= 1) {
         stars.push(fullStar)
