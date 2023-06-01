@@ -41,6 +41,7 @@ const Sidebar = ({
                 city: location.name
               }
             }}
+            key={location.id}
           >
             <p key={location.id} className="font-light capitalize text-reg">{location.name}</p>
           </Link>
@@ -57,6 +58,7 @@ const Sidebar = ({
                 cuisine: cuisine.name
               }
             }}
+            key={cuisine.id}
           >
             <p key={cuisine.id} className="font-light capitalize text-reg">{cuisine.name}</p>
           </Link>
@@ -65,7 +67,7 @@ const Sidebar = ({
       <div className="pb-4 mt-3">
         <h1 className="mb-2">Price</h1>
         <div className="flex">
-          {prices.map(({className, label, price}) => (
+          {prices.map(({className, label, price}, index) => (
             <Link 
               href={{ 
                 pathname: "/search",
@@ -75,6 +77,7 @@ const Sidebar = ({
                 }
               }}
               className={className}
+              key={index}
             >
               {label}
             </Link>
