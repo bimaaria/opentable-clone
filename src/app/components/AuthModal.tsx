@@ -47,7 +47,7 @@ const AuthModal = ({ isSignIn }: { isSignIn: boolean }) => {
       <button 
         type="button" 
         className={`
-          ${renderContent("mr-3 text-white bg-blue-400", "")} p-1 px-4 border rounded` 
+          ${renderContent("mr-3 text-white bg-blue-400", "mr-5")} p-1 px-4 border rounded` 
         }
         onClick={handleOpen}
       >
