@@ -46,6 +46,14 @@ export default async function handler(
   const user = await prisma.user.findUnique({
     where: {
       email: payload.email
+    },
+    select: {
+      id: true,
+      first_name: true,
+      last_name: true,
+      city: true,
+      phone: true,
+      email: true,
     }
   });
 
