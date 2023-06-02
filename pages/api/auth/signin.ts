@@ -56,7 +56,7 @@ export default async function handler(
     const alg = "HS256";
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-    const token = await new jose.SignJWT({ email: userWithEmail })
+    const token = await new jose.SignJWT({ email: userWithEmail.email })
       .setProtectedHeader({ alg })
       .setExpirationTime("24h")
       .sign(secret);
