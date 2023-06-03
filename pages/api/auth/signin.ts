@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import * as jose from "jose";
+import { setCookie } from "cookies-next";
 
 const prisma = new PrismaClient();
 
@@ -37,17 +38,17 @@ export default async function handler(
       return res.status(400).json({ errorMessage: errors[0] });
     }
 
-    const userWithEmail = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email
       }
     });
 
-    if(!userWithEmail) {
+    if(!user) {
       return res.status(401).json({ errorMessage: "Email or password is wrong" });
     }
     
-    const isMatch = await bcrypt.compare(password, userWithEmail.password);
+    const isMatch = await bcrypt.compare(password, user.password);
     
     if(!isMatch) {
       return res.status(401).json({ errorMessage: "Email or password is wrong" });
@@ -56,12 +57,18 @@ export default async function handler(
     const alg = "HS256";
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-    const token = await new jose.SignJWT({ email: userWithEmail.email })
+    const token = await new jose.SignJWT({ email: user.email })
       .setProtectedHeader({ alg })
       .setExpirationTime("24h")
       .sign(secret);
+      
+      setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
 
-    return res.status(200).json(token);
+    const response = (
+      ({ id, first_name, last_name, phone, city, email }) => ({ id, first_name, last_name, phone, city, email })
+    )(user);
+
+    return res.status(200).json(response);
   }
 
   return res.status(404).json("Unknown endpoint");
