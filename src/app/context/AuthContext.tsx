@@ -38,7 +38,7 @@ const AuthContext = ({
   const [authState, setAuthState] = React.useState<State>({
     data: null,
     error: null,
-    loading: false
+    loading: true
   });
 
   const fetchUser = async () => {
