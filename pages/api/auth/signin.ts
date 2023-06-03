@@ -62,7 +62,7 @@ export default async function handler(
       .setExpirationTime("24h")
       .sign(secret);
       
-      setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
+    setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
 
     const response = (
       ({ id, first_name, last_name, phone, city, email }) => ({ id, first_name, last_name, phone, city, email })

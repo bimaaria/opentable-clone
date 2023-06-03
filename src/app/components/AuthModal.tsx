@@ -71,7 +71,7 @@ const AuthModal = ({ isSignIn }: { isSignIn: boolean }) => {
     if(isSignIn) {
       signin({ email: input.email, password: input.password }, handleClose);
     } else {
-      signup();
+      signup(input, handleClose);
     }
   }
 

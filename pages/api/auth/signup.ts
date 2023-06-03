@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import * as jose from "jose";
+import { setCookie } from "cookies-next";
 
 const prisma = new PrismaClient();
 
@@ -56,7 +57,7 @@ export default async function handler(
 
     if(errors.length) {
       return res.status(400).json({
-        message: errors[0]
+        errorMessage: errors[0]
       });
     }
 
@@ -68,7 +69,7 @@ export default async function handler(
 
     if(userExist) {
       return res.status(400).json({
-        message: "This email has been used by another account"
+        errorMessage: "This email has been used by another account"
       })
     }
 
@@ -93,10 +94,12 @@ export default async function handler(
       .setExpirationTime("24h")
       .sign(secret);
 
+    setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
+
     const response = (
       ({ first_name, last_name, city, phone, email }) => ({ first_name, last_name, city, phone, email })
     )(user);
 
-    res.status(200).json({...response, token: token});
+    res.status(200).json(response);
   }
 }

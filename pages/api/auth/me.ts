@@ -33,5 +33,17 @@ export default async function handler(
     }
   });
 
-  return res.status(200).json(user)
+  if(!user) {
+    res.status(401).json({
+      userMessage: "User not found"
+    });
+  }
+
+  const response = {
+    ...user,
+    firstName: user?.first_name,
+    lastName: user?.last_name
+  }
+
+  return res.status(200).json(response)
 }
